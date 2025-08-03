@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>تجربة زيادة متابعين</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #202123;
+    color: #e5e5e5;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    height: 100vh;
+    box-sizing: border-box;
+  }
+  .container {
+    max-width: 600px;
+    width: 100%;
+    background: #2a2a2e;
+    border-radius: 8px;
+    padding: 20px;
+    box-sizing: border-box;
+    box-shadow: 0 0 10px #444;
+  }
+  h1 {
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    border: none;
+    margin-bottom: 10px;
+    font-size: 16px;
+  }
+  button {
+    width: 100%;
+    padding: 12px;
+    background: #3a8bff;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  button:hover {
+    background: #2f78e0;
+  }
+  .response {
+    margin-top: 20px;
+    background: #3c3c42;
+    padding: 15px;
+    border-radius: 6px;
+    min-height: 60px;
+    font-size: 18px;
+    text-align: center;
+  }
+  .followers-count {
+    font-weight: bold;
+    font-size: 24px;
+    margin-top: 10px;
+    color: #4caf50;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>تجربة زيادة متابعين إنستقرام</h1>
+    <input id="username" type="text" placeholder="اكتب اسم حساب الإنستقرام" />
+    <button onclick="sendRequest()">إرسال</button>
+    <div id="response" class="response"></div>
+    <div id="followers" class="followers-count"></div>
+  </div>
+
+<script>
+  function getRandomFollowers() {
+    return Math.floor(Math.random() * (50000 - 1000 + 1)) + 1000;
+  }
+
+  function sendRequest() {
+    const username = document.getElementById('username').value.trim().toLowerCase();
+    const responseDiv = document.getElementById('response');
+    const followersDiv = document.getElementById('followers');
+    followersDiv.textContent = '';
+    if (!username) {
+      responseDiv.textContent = "من فضلك اكتب اسم الحساب أولاً";
+      return;
+    }
+    responseDiv.textContent = `تم تسجيل طلب زيادة المتابعين للحساب @${username}، جاري التنفيذ... (تجربة فقط)`;
+
+    setTimeout(() => {
+      let storedFollowers = localStorage.getItem(username);
+      if (!storedFollowers) {
+        storedFollowers = getRandomFollowers();
+        localStorage.setItem(username, storedFollowers);
+      }
+
+      followersDiv.textContent = `عدد المتابعين الحالي: ${parseInt(storedFollowers).toLocaleString()}`;
+      responseDiv.textContent = `تمت زيادة المتابعين لحساب @${username} بنجاح!`;
+    }, 2000);
+  }
+</script>
+</body>
+</html>
